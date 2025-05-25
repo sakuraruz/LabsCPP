@@ -1,32 +1,14 @@
-# Prerequisites
-*.d
+# Игнорировать всё
+*
 
-# Compiled Object files
-*.slo
-*.lo
-*.o
-*.obj
+!*.cpp
+!*.h
 
-# Precompiled Headers
-*.gch
-*.pch
 
-# Compiled Dynamic libraries
-*.so
-*.dylib
-*.dll
+!*.vcxproj
+!*.vcxproj.filters
+!*.sln
 
-# Fortran module files
-*.mod
-*.smod
-
-# Compiled Static libraries
-*.lai
-*.la
-*.a
-*.lib
-
-# Executables
-*.exe
-*.out
-*.app
+!sfml-graphics-2.dll
+!sfml-system-2.dll
+!sfml-window-2.dll

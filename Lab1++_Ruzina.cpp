@@ -4,7 +4,7 @@
 #include <vector>
 using namespace std;
 
-vector<double> ReadFile(string name)
+vector<double> ReadFile(const string& name)
 {
     ifstream file(name);
     double coefficient;
@@ -27,26 +27,31 @@ vector<double> ReadFile(string name)
     return coefficients;
 }
 
-vector<double> solution_Polynom(vector<double> coefficients)
+vector<double> solution_Polynom(const vector<double>& coefficients)
 {
     vector<double> result;
+    if (coefficients[0] == 0)
+    {
+        cout << "Коэффициент при x^2 равен нулю — это не квадратное уравнение." << endl;
+        exit(0);
+    }
     double D = coefficients[1] * coefficients[1] - 4 * coefficients[0] * coefficients[2];
     if (D >= 0)
     {
         if (D == 0)
         {
-            result.push_back((0 - coefficients[1] + sqrt(D)) / (2 * coefficients[0]));
+            result.push_back(-coefficients[1] / (2 * coefficients[0]));
         }
         else
         {
-            result.push_back((0 - coefficients[1] + sqrt(D)) / (2 * coefficients[0]));
-            result.push_back((0 - coefficients[1] - sqrt(D)) / (2 * coefficients[0]));
+            result.push_back((- coefficients[1] + sqrt(D)) / (2 * coefficients[0]));
+            result.push_back((- coefficients[1] - sqrt(D)) / (2 * coefficients[0]));
         }
     }
     return result;
 }
 
-void WriteResulInFile(vector<double> result, string name)
+void WriteResulInFile(const vector<double>& result, const string& name)
 {
     ofstream file(name);
     if (!file.is_open())
@@ -57,17 +62,16 @@ void WriteResulInFile(vector<double> result, string name)
     switch (result.size())
     {
     case 0: file << "Нет действительных корней" << endl;
-        break;
+        exit(0);
     case 1: file << "Корень уравнения:" << endl;
         break;
     case 2: file << "Корни уравнения:" << endl;
         break;
     }
-    for (int i = 0; i < result.size(); i++)
+    for (double x : result)
     {
-        file << result[i] << " ";
+        file << x << " ";
     }
-    return;
 }
 
 int main()
